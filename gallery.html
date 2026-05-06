@@ -1,44 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMO Gallery</title>
+
+<!-- FONT (WAJIB) -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== THEME SYSTEM (SYNC INDEX) ===== */
+:root{
+--bg:#fff0f6;
+--bg2:#f9f5ff;
+--card:#ffffff;
+--accent:#c084fc;
+--text:#5b4b66;
+--text2:#9c8aa5;
+}
+
+body.dark{
+--bg:#0b0b0f;
+--bg2:#14141a;
+--card:#111114;
+--text:#f3f3f3;
+--text2:#a1a1aa;
+}
+
+/* ===== BASE ===== */
+body{
+margin:0;
+font-family:'Quicksand', sans-serif;
+background:linear-gradient(135deg,var(--bg),var(--bg2));
+color:var(--text);
+transition:.4s;
+text-align:center;
+padding:3rem 1.5rem;
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+max-width:700px;
+margin:0 auto 2rem;
+}
+
+h1{
+font-size:2rem;
+margin:0;
+}
+
+/* toggle button */
+.toggle{
+border:none;
+background:var(--card);
+color:var(--text);
+padding:8px 12px;
+border-radius:999px;
+cursor:pointer;
+transition:.3s;
+}
+
+.toggle:hover{
+transform:scale(1.05);
+}
+
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:1.5rem;
+max-width:700px;
+margin:auto;
+}
+
+/* ===== FOLDER CARD ===== */
+.folder{
+background:var(--card);
+border-radius:20px;
+padding:2rem 1.5rem;
+text-decoration:none;
+color:var(--text);
+transition:.3s;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+.folder:hover{
+transform:translateY(-6px);
+}
+
+/* image */
+.folder img{
+width:80px;
+height:80px;
+object-fit:contain;
+}
+
+/* back */
+.back{
+display:inline-block;
+margin-top:2.5rem;
+color:var(--accent);
+text-decoration:none;
+font-size:.9rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOPBAR -->
 <div class="topbar">
 <h1>MOMO Gallery ✨</h1>
 <button class="toggle" id="toggle">🌙</button>
 </div>
 
+<!-- GRID -->
 <div class="grid">
 
 <a href="initia.html" class="folder">
-<img src="images/folder/initia.png" width="70">
+<img src="images/folder/initia.png">
 <h3>Initia</h3>
 </a>
 
 <a href="rise.html" class="folder">
-<img src="images/folder/rise.jpg" width="70">
+<img src="images/folder/rise.png">
 <h3>Rise Chain</h3>
 </a>
 
 </div>
 
+<!-- BACK -->
 <a class="back" href="index.html">← back to home</a>
 
+<!-- DARK MODE SYNC -->
 <script>
-const toggle=document.getElementById("toggle");
+const toggle = document.getElementById("toggle");
 
-function syncTheme(){
-const t=localStorage.getItem("theme");
-if(t==="dark"){
+function applyTheme(){
+const theme = localStorage.getItem("theme");
+
+if(theme === "dark"){
 document.body.classList.add("dark");
-toggle.textContent="☀️";
+toggle.textContent = "☀️";
 }else{
 document.body.classList.remove("dark");
-toggle.textContent="🌙";
+toggle.textContent = "🌙";
 }
 }
-syncTheme();
 
-toggle.onclick=()=>{
-const isDark=document.body.classList.toggle("dark");
-localStorage.setItem("theme",isDark?"dark":"light");
-toggle.textContent=isDark?"☀️":"🌙";
+applyTheme();
+
+toggle.onclick = () => {
+const isDark = document.body.classList.toggle("dark");
+localStorage.setItem("theme", isDark ? "dark" : "light");
+toggle.textContent = isDark ? "☀️" : "🌙";
 };
 
-window.addEventListener("storage",syncTheme);
+window.addEventListener("storage", applyTheme);
 </script>
+
+</body>
+</html>
