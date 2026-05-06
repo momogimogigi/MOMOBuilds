@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMO — Builds</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+--bg:#fff0f6;
+--card:#ffffff;
+--text:#5b4b66;
+--accent:#c084fc;
+--pink:#ffb3d9;
+}
+
+body{
+font-family:'Quicksand',sans-serif;
+background:linear-gradient(135deg,var(--bg),#f9f5ff);
+color:var(--text);
+min-height:100vh;
+padding:2rem;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:2rem;
+}
+
+.back{
+text-decoration:none;
+color:var(--text);
+font-weight:600;
+}
+
+h1{
+font-size:2.5rem;
+margin-bottom:1rem;
+}
+
+.subtitle{
+opacity:.7;
+margin-bottom:2rem;
+}
+
+.card{
+background:var(--card);
+padding:2rem;
+border-radius:20px;
+max-width:700px;
+margin:auto;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.project-title{
+font-size:1.3rem;
+margin-bottom:.5rem;
+}
+
+.desc{
+opacity:.8;
+margin-bottom:1.5rem;
+}
+
+.btn{
+display:inline-block;
+padding:.8rem 1.5rem;
+background:var(--pink);
+color:white;
+border-radius:999px;
+text-decoration:none;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a class="back" href="index.html">← back</a>
+<div>MOMO Builds 💻</div>
+</nav>
+
+<h1>Builds</h1>
+<p class="subtitle">simple experiments & onchain explorations ✨</p>
+
+<div class="card">
+<div class="project-title">RISE Chain MOMO Project</div>
+<p class="desc">
+A simple experimental website exploring RISE Chain ecosystem and onchain UX experiments.
+</p>
+
+<a class="btn" href="https://risechainmomo-phi.vercel.app" target="_blank">
+visit project →
+</a>
+</div>
+
+</body>
+</html>
