@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rise Chain Art</title>
+<title>MOMO — Crypto Space</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-/* ===== THEME (SYNC INDEX) ===== */
 :root{
 --bg:#fff0f6;
 --bg2:#f9f5ff;
@@ -29,226 +29,125 @@ body.dark{
 }
 
 body{
-margin:0;
-font-family:'Quicksand', sans-serif;
+font-family:'Quicksand',sans-serif;
 background:linear-gradient(135deg,var(--bg),var(--bg2));
 color:var(--text);
 transition:.4s;
-padding:2rem;
-overflow-x:hidden;
 }
 
-/* ===== TOPBAR ===== */
-.topbar{
+nav{
 display:flex;
 justify-content:space-between;
-align-items:center;
-margin-bottom:1.5rem;
-max-width:900px;
-margin-inline:auto;
+padding:1.5rem 2rem;
 }
 
-h1{
-font-size:1.8rem;
-margin:0;
-}
-
-a.back{
-color:var(--accent);
-text-decoration:none;
-font-family:'Space Mono', monospace;
-font-size:.85rem;
-}
-
-/* toggle */
 #toggle{
 border:none;
 background:var(--card);
-color:var(--text);
-padding:6px 10px;
 border-radius:999px;
+padding:6px 10px;
 cursor:pointer;
 }
 
-/* ===== GRID ===== */
+.hero{
+text-align:center;
+padding:6rem 2rem;
+}
+
+.hero h1{font-size:clamp(3rem,8vw,5rem);}
+.accent{color:var(--accent);}
+
+.btn{
+display:inline-block;
+margin-top:2rem;
+padding:.8rem 2rem;
+background:var(--pink);
+color:white;
+border-radius:999px;
+text-decoration:none;
+}
+
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:12px;
+grid-template-columns:repeat(2,1fr);
+gap:1rem;
 max-width:900px;
-margin:auto;
+margin:3rem auto;
+padding:0 2rem;
 }
 
-/* ===== IMAGE CARD ===== */
-.img-wrap{
-width:100%;
-height:160px;
-overflow:hidden;
-border-radius:14px;
-cursor:pointer;
+.card{
 background:var(--card);
-box-shadow:0 10px 20px rgba(0,0,0,0.05);
+padding:1.5rem;
+border-radius:20px;
+transition:.3s;
 }
 
-.img-wrap img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:.35s;
+.card:hover{transform:translateY(-6px);}
+
+footer{
+text-align:center;
+padding:2rem;
+color:var(--text2);
 }
-
-.img-wrap:hover img{
-transform:scale(1.08);
-}
-
-/* ===== LIGHTBOX ===== */
-.lightbox{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.92);
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.lightbox img{
-max-width:90%;
-max-height:90%;
-object-fit:contain;
-border-radius:12px;
-}
-
-/* arrows */
-.arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-font-size:2rem;
-color:white;
-cursor:pointer;
-user-select:none;
-padding:10px;
-}
-
-.left{left:20px;}
-.right{right:20px;}
-
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-<h1>Rise Chain ✨</h1>
-
-<div style="display:flex;gap:10px;align-items:center;">
-<a class="back" href="gallery.html">← back</a>
+<nav>
+<div>MOMO 💜</div>
 <button id="toggle">🌙</button>
-</div>
-</div>
+</nav>
 
-<!-- GRID AUTO -->
-<div class="grid" id="grid"></div>
+<section class="hero">
+<h1>MOMO<br><span class="accent">in crypto</span></h1>
+<p>a soft space for building & contributing ✨</p>
+<a href="#work" class="btn">explore →</a>
+</section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox">
-<div class="arrow left" onclick="prev()">❮</div>
-<img id="lightbox-img">
-<div class="arrow right" onclick="next()">❯</div>
+<section id="work">
+<div class="grid">
+
+<a href="gallery.html" style="text-decoration:none;color:inherit;">
+<div class="card">
+<h3>🎨 visual contributions</h3>
+<p>click to explore my art</p>
 </div>
+</a>
+
+<div class="card"><h3>💻 builds</h3><p>simple web experiments</p></div>
+<div class="card"><h3>🧠 ideas</h3><p>UX thinking</p></div>
+<div class="card"><h3>🌐 presence</h3><p>community contributions</p></div>
+
+</div>
+</section>
+
+<footer>MOMO ✨</footer>
 
 <script>
+const toggle=document.getElementById("toggle");
 
-/* ===== DARK MODE SYNC FIX ===== */
-const toggle = document.getElementById("toggle");
-
-if (localStorage.getItem("theme") === "dark") {
+function applyTheme(){
+const theme=localStorage.getItem("theme");
+if(theme==="dark"){
 document.body.classList.add("dark");
-toggle.textContent = "☀️";
+toggle.textContent="☀️";
+}else{
+document.body.classList.remove("dark");
+toggle.textContent="🌙";
+}
 }
 
-toggle.onclick = () => {
-document.body.classList.toggle("dark");
+applyTheme();
 
-const isDark = document.body.classList.contains("dark");
-localStorage.setItem("theme", isDark ? "dark" : "light");
-
-toggle.textContent = isDark ? "☀️" : "🌙";
+toggle.onclick=()=>{
+const isDark=document.body.classList.toggle("dark");
+localStorage.setItem("theme",isDark?"dark":"light");
+toggle.textContent=isDark?"☀️":"🌙";
 };
 
-/* ===== IMAGE DATA (1 - 49) ===== */
-const images = Array.from({length:49}, (_,i)=>
-`images/rise/art${i+1}.png`
-);
-
-/* ===== AUTO BUILD GRID ===== */
-const grid = document.getElementById("grid");
-
-images.forEach((src, index) => {
-const div = document.createElement("div");
-div.className = "img-wrap";
-
-div.innerHTML = `<img src="${src}" onclick="openLightbox(${index})">`;
-
-grid.appendChild(div);
-});
-
-/* ===== LIGHTBOX ===== */
-let current = 0;
-
-function openLightbox(index){
-current = index;
-document.getElementById("lightbox").style.display="flex";
-show();
-}
-
-function show(){
-document.getElementById("lightbox-img").src = images[current];
-}
-
-function next(){
-current = (current + 1) % images.length;
-show();
-}
-
-function prev(){
-current = (current - 1 + images.length) % images.length;
-show();
-}
-
-/* CLOSE */
-document.getElementById("lightbox").onclick = (e)=>{
-if(e.target.id === "lightbox"){
-document.getElementById("lightbox").style.display="none";
-}
-};
-
-/* KEYBOARD */
-document.addEventListener("keydown",(e)=>{
-if(document.getElementById("lightbox").style.display==="flex"){
-if(e.key==="ArrowRight") next();
-if(e.key==="ArrowLeft") prev();
-if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
-}
-});
-
-/* SWIPE */
-let startX = 0;
-
-document.getElementById("lightbox").addEventListener("touchstart",(e)=>{
-startX = e.touches[0].clientX;
-});
-
-document.getElementById("lightbox").addEventListener("touchend",(e)=>{
-let endX = e.changedTouches[0].clientX;
-
-if(startX - endX > 50) next();
-if(endX - startX > 50) prev();
-});
-
+window.addEventListener("storage",applyTheme);
 </script>
 
 </body>
