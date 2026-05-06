@@ -13,16 +13,8 @@ padding:2rem;
 }
 
 /* header */
-h1{
-margin-bottom:0.5rem;
-}
-
-a{
-display:inline-block;
-margin-bottom:2rem;
-color:#c084fc;
-text-decoration:none;
-}
+h1{margin-bottom:0.5rem;}
+a{display:inline-block;margin-bottom:2rem;color:#c084fc;text-decoration:none;}
 
 /* grid */
 .grid{
@@ -31,28 +23,23 @@ grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:12px;
 }
 
-/* image */
-img{
+.img-wrap{
 width:100%;
-height:160px; /* 🔥 penting biar ringan */
-object-fit:cover;
+height:160px;
+overflow:hidden;
 border-radius:12px;
 cursor:pointer;
+}
 
-filter:blur(10px);
-transform:scale(1.05);
+.img-wrap img{
+width:100%;
+height:100%;
+object-fit:cover;
 transition:.4s;
 }
 
-/* setelah load */
-img.loaded{
-filter:blur(0);
-transform:scale(1);
-}
-
-/* hover */
-img:hover{
-transform:scale(1.05);
+.img-wrap:hover img{
+transform:scale(1.08);
 }
 
 /* LIGHTBOX */
@@ -62,30 +49,34 @@ position:fixed;
 top:0;left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.92);
+background:rgba(0,0,0,0.95);
 justify-content:center;
 align-items:center;
 z-index:999;
-animation:fadeIn .3s ease;
 }
 
 .lightbox img{
 max-width:90%;
 max-height:90%;
+object-fit:contain;
 border-radius:12px;
-animation:zoomIn .3s ease;
+transition:.3s;
 }
 
-/* animasi */
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
+/* arrows */
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:2rem;
+color:white;
+cursor:pointer;
+padding:10px;
+user-select:none;
 }
 
-@keyframes zoomIn{
-from{transform:scale(.8);}
-to{transform:scale(1);}
-}
+.left{left:20px;}
+.right{right:20px;}
 
 </style>
 </head>
@@ -97,33 +88,108 @@ to{transform:scale(1);}
 
 <div class="grid">
 
-<img src="images/initia/art1ok.png" loading="lazy" onclick="openLightbox(this)">
-<img src="images/initia/art2ok.png" loading="lazy" onclick="openLightbox(this)">
-<img src="images/initia/art3ok.png" loading="lazy" onclick="openLightbox(this)">
-<img src="images/initia/art4ok.png" loading="lazy" onclick="openLightbox(this)">
-<img src="images/initia/art5ok.png" loading="lazy" onclick="openLightbox(this)">
-<img src="images/initia/art6ok.png" loading="lazy" onclick="openLightbox(this)">
+<div class="img-wrap" onclick="openLightbox(0)">
+<img src="images/initia/art1ok.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(1)">
+<img src="images/initia/art2ok.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(2)">
+<img src="images/initia/art3ok.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(3)">
+<img src="images/initia/art4ok.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(4)">
+<img src="images/initia/art5ok.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(5)">
+<img src="images/initia/art6ok.png">
+</div>
 
 </div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+<div id="lightbox" class="lightbox">
+<div class="arrow left" onclick="prev()">❮</div>
 <img id="lightbox-img">
+<div class="arrow right" onclick="next()">❯</div>
 </div>
 
 <script>
-// lightbox
-function openLightbox(img){
+const images = [
+"images/initia/art1ok.png",
+"images/initia/art2ok.png",
+"images/initia/art3ok.png",
+"images/initia/art4ok.png",
+"images/initia/art5ok.png",
+"images/initia/art6ok.png"
+];
+
+let current = 0;
+
+/* open */
+function openLightbox(index){
+current = index;
 document.getElementById("lightbox").style.display="flex";
-document.getElementById("lightbox-img").src=img.src;
-}
-function closeLightbox(){
-document.getElementById("lightbox").style.display="none";
+showImage();
 }
 
-// blur loading effect
-document.querySelectorAll("img").forEach(img=>{
-img.onload=()=> img.classList.add("loaded");
+/* show */
+function showImage(){
+document.getElementById("lightbox-img").src = images[current];
+}
+
+/* next prev */
+function next(){
+current = (current + 1) % images.length;
+showImage();
+}
+
+function prev(){
+current = (current - 1 + images.length) % images.length;
+showImage();
+}
+
+/* close */
+document.getElementById("lightbox").onclick = (e)=>{
+if(e.target.id === "lightbox"){
+document.getElementById("lightbox").style.display="none";
+}
+};
+
+/* keyboard */
+document.addEventListener("keydown",(e)=>{
+if(document.getElementById("lightbox").style.display==="flex"){
+if(e.key==="ArrowRight") next();
+if(e.key==="ArrowLeft") prev();
+if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
+}
+});
+
+/* SWIPE (mobile) */
+let startX = 0;
+
+const lightbox = document.getElementById("lightbox");
+
+lightbox.addEventListener("touchstart",(e)=>{
+startX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchend",(e)=>{
+let endX = e.changedTouches[0].clientX;
+
+if(startX - endX > 50){
+next(); // swipe left
+}
+else if(endX - startX > 50){
+prev(); // swipe right
+}
 });
 </script>
 
