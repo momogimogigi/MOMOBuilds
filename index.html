@@ -184,6 +184,26 @@ font-size:.8rem;
 color:var(--text2);
 }
 
+/* ART GRID */
+.art-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:12px;
+}
+
+.art-grid img{
+width:100%;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+transition:.3s;
+}
+
+.art-grid img:hover{
+transform:scale(1.05);
+}
+
 /* footer */
 footer{
 text-align:center;
@@ -255,7 +275,13 @@ small contributions and creative experiments in the crypto space
 
 <div class="card">
 <h3>🎨 visual contributions</h3>
-<p>creating arts inspired by projects</p>
+<p>art inspired by crypto projects</p>
+
+<div class="art-grid">
+<img src="images/art1.jpg">
+<img src="images/art2.jpg">
+</div>
+
 </div>
 
 <div class="card">
