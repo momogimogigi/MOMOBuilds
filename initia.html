@@ -12,33 +12,81 @@ background:#fff0f6;
 padding:2rem;
 }
 
+/* header */
+h1{
+margin-bottom:0.5rem;
+}
+
+a{
+display:inline-block;
+margin-bottom:2rem;
+color:#c084fc;
+text-decoration:none;
+}
+
+/* grid */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:12px;
 }
 
+/* image */
 img{
 width:100%;
+height:160px; /* 🔥 penting biar ringan */
+object-fit:cover;
 border-radius:12px;
 cursor:pointer;
+
+filter:blur(10px);
+transform:scale(1.05);
+transition:.4s;
 }
 
+/* setelah load */
+img.loaded{
+filter:blur(0);
+transform:scale(1);
+}
+
+/* hover */
+img:hover{
+transform:scale(1.05);
+}
+
+/* LIGHTBOX */
 .lightbox{
 display:none;
 position:fixed;
 top:0;left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.92);
 justify-content:center;
 align-items:center;
+z-index:999;
+animation:fadeIn .3s ease;
 }
 
 .lightbox img{
 max-width:90%;
 max-height:90%;
+border-radius:12px;
+animation:zoomIn .3s ease;
 }
+
+/* animasi */
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes zoomIn{
+from{transform:scale(.8);}
+to{transform:scale(1);}
+}
+
 </style>
 </head>
 
@@ -48,24 +96,28 @@ max-height:90%;
 <a href="gallery.html">← back</a>
 
 <div class="grid">
-<img src="images/initia/art1.png" onclick="openLightbox(this)">
-<img src="images/initia/art2.png" onclick="openLightbox(this)">
-<img src="images/initia/art3.png" onclick="openLightbox(this)">
-<img src="images/initia/art4.png" onclick="openLightbox(this)">
-<img src="images/initia/art5.png" onclick="openLightbox(this)">
-<img src="images/initia/art6.png" onclick="openLightbox(this)">
-<img src="images/initia/art7.png" onclick="openLightbox(this)">
-<img src="images/initia/art8.png" onclick="openLightbox(this)">
-<img src="images/initia/art9.png" onclick="openLightbox(this)">
-<img src="images/initia/art10.png" onclick="openLightbox(this)">
-<img src="images/initia/art11.png" onclick="openLightbox(this)">
+
+<img src="images/initia/art1.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art2.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art3.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art4.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art5.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art6.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art7.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art8.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art9.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art10.png" loading="lazy" onclick="openLightbox(this)">
+<img src="images/initia/art11.png" loading="lazy" onclick="openLightbox(this)">
+
 </div>
 
+<!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
 <img id="lightbox-img">
 </div>
 
 <script>
+// lightbox
 function openLightbox(img){
 document.getElementById("lightbox").style.display="flex";
 document.getElementById("lightbox-img").src=img.src;
@@ -73,6 +125,11 @@ document.getElementById("lightbox-img").src=img.src;
 function closeLightbox(){
 document.getElementById("lightbox").style.display="none";
 }
+
+// blur loading effect
+document.querySelectorAll("img").forEach(img=>{
+img.onload=()=> img.classList.add("loaded");
+});
 </script>
 
 </body>
