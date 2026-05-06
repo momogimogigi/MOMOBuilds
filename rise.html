@@ -13,18 +13,16 @@ padding:2rem;
 margin:0;
 }
 
-/* header */
 h1{margin-bottom:0.5rem;}
 a{display:inline-block;margin-bottom:2rem;color:#c084fc;text-decoration:none;}
 
-/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:12px;
 }
 
-/* IMAGE BOX */
+/* image container */
 .img-wrap{
 width:100%;
 height:160px;
@@ -38,8 +36,8 @@ background:#eee;
 width:100%;
 height:100%;
 object-fit:cover;
-transition:.3s ease;
 display:block;
+transition:.3s;
 }
 
 .img-wrap:hover img{
@@ -59,18 +57,11 @@ align-items:center;
 z-index:999;
 }
 
-/* image in lightbox */
 .lightbox img{
 max-width:92%;
 max-height:90%;
 object-fit:contain;
 border-radius:12px;
-animation:zoom .25s ease;
-}
-
-@keyframes zoom{
-from{transform:scale(.9);opacity:.5;}
-to{transform:scale(1);opacity:1;}
 }
 
 /* arrows */
@@ -86,7 +77,6 @@ padding:12px;
 opacity:0.8;
 }
 
-.arrow:hover{opacity:1;}
 .left{left:15px;}
 .right{right:15px;}
 
@@ -98,58 +88,41 @@ opacity:0.8;
 <h1>Rise Chain ✨</h1>
 <a href="gallery.html">← back</a>
 
-<div class="grid">
-
-<!-- 26 IMAGES -->
-<div class="img-wrap" onclick="openLightbox(0)"><img src="images/rise/art1.png"></div>
-<div class="img-wrap" onclick="openLightbox(1)"><img src="images/rise/art2.png"></div>
-<div class="img-wrap" onclick="openLightbox(2)"><img src="images/rise/art3.png"></div>
-<div class="img-wrap" onclick="openLightbox(3)"><img src="images/rise/art4.png"></div>
-<div class="img-wrap" onclick="openLightbox(4)"><img src="images/rise/art5.png"></div>
-<div class="img-wrap" onclick="openLightbox(5)"><img src="images/rise/art6.png"></div>
-<div class="img-wrap" onclick="openLightbox(6)"><img src="images/rise/art7.png"></div>
-<div class="img-wrap" onclick="openLightbox(7)"><img src="images/rise/art8.png"></div>
-<div class="img-wrap" onclick="openLightbox(8)"><img src="images/rise/art9.png"></div>
-<div class="img-wrap" onclick="openLightbox(9)"><img src="images/rise/art10.png"></div>
-<div class="img-wrap" onclick="openLightbox(10)"><img src="images/rise/art11.png"></div>
-<div class="img-wrap" onclick="openLightbox(11)"><img src="images/rise/art12.png"></div>
-<div class="img-wrap" onclick="openLightbox(12)"><img src="images/rise/art13.png"></div>
-<div class="img-wrap" onclick="openLightbox(13)"><img src="images/rise/art14.png"></div>
-<div class="img-wrap" onclick="openLightbox(14)"><img src="images/rise/art15.png"></div>
-<div class="img-wrap" onclick="openLightbox(15)"><img src="images/rise/art16.png"></div>
-<div class="img-wrap" onclick="openLightbox(16)"><img src="images/rise/art17.png"></div>
-<div class="img-wrap" onclick="openLightbox(17)"><img src="images/rise/art18.png"></div>
-<div class="img-wrap" onclick="openLightbox(18)"><img src="images/rise/art19.png"></div>
-<div class="img-wrap" onclick="openLightbox(19)"><img src="images/rise/art20.png"></div>
-<div class="img-wrap" onclick="openLightbox(20)"><img src="images/rise/art21.png"></div>
-<div class="img-wrap" onclick="openLightbox(21)"><img src="images/rise/art22.png"></div>
-<div class="img-wrap" onclick="openLightbox(22)"><img src="images/rise/art23.png"></div>
-<div class="img-wrap" onclick="openLightbox(23)"><img src="images/rise/art24.png"></div>
-<div class="img-wrap" onclick="openLightbox(24)"><img src="images/rise/art25.png"></div>
-<div class="img-wrap" onclick="openLightbox(25)"><img src="images/rise/art26.png"></div>
-
-</div>
+<div class="grid" id="grid"></div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox">
-
 <div class="arrow left" onclick="prev()">❮</div>
-
 <img id="lightbox-img">
-
 <div class="arrow right" onclick="next()">❯</div>
-
 </div>
 
 <script>
 
-const images = Array.from({length:26}, (_,i)=>
+/* =========================
+   IMAGES 1 - 49
+========================= */
+const images = Array.from({length:49}, (_,i)=>
 `images/rise/art${i+1}.png`
 );
 
+/* =========================
+   RENDER GRID AUTOMATIC
+========================= */
+const grid = document.getElementById("grid");
+
+images.forEach((src, index)=>{
+const div = document.createElement("div");
+div.className = "img-wrap";
+div.innerHTML = `<img src="${src}" onclick="openLightbox(${index})">`;
+grid.appendChild(div);
+});
+
+/* =========================
+   LIGHTBOX LOGIC
+========================= */
 let current = 0;
 
-/* OPEN */
 function openLightbox(index){
 current = index;
 document.getElementById("lightbox").style.display="flex";
@@ -160,7 +133,6 @@ function show(){
 document.getElementById("lightbox-img").src = images[current];
 }
 
-/* NEXT / PREV */
 function next(){
 current = (current + 1) % images.length;
 show();
@@ -171,14 +143,14 @@ current = (current - 1 + images.length) % images.length;
 show();
 }
 
-/* CLOSE */
+/* close when click outside image */
 document.getElementById("lightbox").onclick = (e)=>{
 if(e.target.id === "lightbox"){
 document.getElementById("lightbox").style.display="none";
 }
 };
 
-/* KEYBOARD */
+/* keyboard */
 document.addEventListener("keydown",(e)=>{
 if(document.getElementById("lightbox").style.display==="flex"){
 if(e.key==="ArrowRight") next();
@@ -187,7 +159,7 @@ if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
 }
 });
 
-/* SWIPE */
+/* swipe mobile */
 let startX = 0;
 const lb = document.getElementById("lightbox");
 
