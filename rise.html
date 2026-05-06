@@ -68,11 +68,6 @@ color:var(--text);
 padding:6px 10px;
 border-radius:999px;
 cursor:pointer;
-transition:.3s;
-}
-
-#toggle:hover{
-transform:scale(1.05);
 }
 
 /* ===== GRID ===== */
@@ -155,36 +150,8 @@ padding:10px;
 </div>
 </div>
 
-<div class="grid">
-
-<div class="img-wrap" onclick="openLightbox(0)">
-<img src="images/rise/art1.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(1)">
-<img src="images/rise/art2.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(2)">
-<img src="images/rise/art3.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(3)">
-<img src="images/rise/art4.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(4)">
-<img src="images/rise/art5.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(5)">
-<img src="images/rise/art6.png">
-</div>
-
-<!-- tambahan sampai 26 tetap aman -->
-<!-- kamu bisa lanjutkan sendiri sampai art26 -->
-
-</div>
+<!-- GRID AUTO -->
+<div class="grid" id="grid"></div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox">
@@ -198,13 +165,11 @@ padding:10px;
 /* ===== DARK MODE SYNC FIX ===== */
 const toggle = document.getElementById("toggle");
 
-// load theme global
 if (localStorage.getItem("theme") === "dark") {
 document.body.classList.add("dark");
 toggle.textContent = "☀️";
 }
 
-// toggle
 toggle.onclick = () => {
 document.body.classList.toggle("dark");
 
@@ -214,50 +179,54 @@ localStorage.setItem("theme", isDark ? "dark" : "light");
 toggle.textContent = isDark ? "☀️" : "🌙";
 };
 
-/* ===== IMAGE DATA ===== */
-const images = [
-"images/rise/art1.png",
-"images/rise/art2.png",
-"images/rise/art3.png",
-"images/rise/art4.png",
-"images/rise/art5.png",
-"images/rise/art6.png"
-];
+/* ===== IMAGE DATA (1 - 49) ===== */
+const images = Array.from({length:49}, (_,i)=>
+`images/rise/art${i+1}.png`
+);
 
+/* ===== AUTO BUILD GRID ===== */
+const grid = document.getElementById("grid");
+
+images.forEach((src, index) => {
+const div = document.createElement("div");
+div.className = "img-wrap";
+
+div.innerHTML = `<img src="${src}" onclick="openLightbox(${index})">`;
+
+grid.appendChild(div);
+});
+
+/* ===== LIGHTBOX ===== */
 let current = 0;
 
-/* open */
 function openLightbox(index){
 current = index;
 document.getElementById("lightbox").style.display="flex";
 show();
 }
 
-/* show */
 function show(){
 document.getElementById("lightbox-img").src = images[current];
 }
 
-/* next */
 function next(){
 current = (current + 1) % images.length;
 show();
 }
 
-/* prev */
 function prev(){
 current = (current - 1 + images.length) % images.length;
 show();
 }
 
-/* close */
+/* CLOSE */
 document.getElementById("lightbox").onclick = (e)=>{
 if(e.target.id === "lightbox"){
 document.getElementById("lightbox").style.display="none";
 }
 };
 
-/* keyboard */
+/* KEYBOARD */
 document.addEventListener("keydown",(e)=>{
 if(document.getElementById("lightbox").style.display==="flex"){
 if(e.key==="ArrowRight") next();
@@ -266,7 +235,7 @@ if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
 }
 });
 
-/* swipe */
+/* SWIPE */
 let startX = 0;
 
 document.getElementById("lightbox").addEventListener("touchstart",(e)=>{
