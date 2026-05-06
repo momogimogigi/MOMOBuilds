@@ -10,36 +10,40 @@ body{
 font-family:sans-serif;
 background:#fff0f6;
 padding:2rem;
+margin:0;
 }
 
 /* header */
 h1{margin-bottom:0.5rem;}
 a{display:inline-block;margin-bottom:2rem;color:#c084fc;text-decoration:none;}
 
-/* grid */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:12px;
 }
 
+/* IMAGE BOX */
 .img-wrap{
 width:100%;
 height:160px;
 overflow:hidden;
 border-radius:12px;
 cursor:pointer;
+background:#eee;
 }
 
 .img-wrap img{
 width:100%;
 height:100%;
 object-fit:cover;
-transition:.3s;
+transition:.3s ease;
+display:block;
 }
 
 .img-wrap:hover img{
-transform:scale(1.08);
+transform:scale(1.06);
 }
 
 /* LIGHTBOX */
@@ -55,11 +59,18 @@ align-items:center;
 z-index:999;
 }
 
+/* image in lightbox */
 .lightbox img{
-max-width:90%;
+max-width:92%;
 max-height:90%;
 object-fit:contain;
 border-radius:12px;
+animation:zoom .25s ease;
+}
+
+@keyframes zoom{
+from{transform:scale(.9);opacity:.5;}
+to{transform:scale(1);opacity:1;}
 }
 
 /* arrows */
@@ -71,11 +82,13 @@ font-size:2rem;
 color:white;
 cursor:pointer;
 user-select:none;
-padding:10px;
+padding:12px;
+opacity:0.8;
 }
 
-.left{left:20px;}
-.right{right:20px;}
+.arrow:hover{opacity:1;}
+.left{left:15px;}
+.right{right:15px;}
 
 </style>
 </head>
@@ -87,69 +100,52 @@ padding:10px;
 
 <div class="grid">
 
-<div class="img-wrap" onclick="openLightbox(0)">
-<img src="images/rise/art1.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(1)">
-<img src="images/rise/art2.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(2)">
-<img src="images/rise/art3.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(3)">
-<img src="images/rise/art4.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(4)">
-<img src="images/rise/art5.png">
-</div>
-
-<div class="img-wrap" onclick="openLightbox(5)">
-<img src="images/rise/art6.png">
-</div>
+<!-- 26 IMAGES -->
+<div class="img-wrap" onclick="openLightbox(0)"><img src="images/rise/art1.png"></div>
+<div class="img-wrap" onclick="openLightbox(1)"><img src="images/rise/art2.png"></div>
+<div class="img-wrap" onclick="openLightbox(2)"><img src="images/rise/art3.png"></div>
+<div class="img-wrap" onclick="openLightbox(3)"><img src="images/rise/art4.png"></div>
+<div class="img-wrap" onclick="openLightbox(4)"><img src="images/rise/art5.png"></div>
+<div class="img-wrap" onclick="openLightbox(5)"><img src="images/rise/art6.png"></div>
+<div class="img-wrap" onclick="openLightbox(6)"><img src="images/rise/art7.png"></div>
+<div class="img-wrap" onclick="openLightbox(7)"><img src="images/rise/art8.png"></div>
+<div class="img-wrap" onclick="openLightbox(8)"><img src="images/rise/art9.png"></div>
+<div class="img-wrap" onclick="openLightbox(9)"><img src="images/rise/art10.png"></div>
+<div class="img-wrap" onclick="openLightbox(10)"><img src="images/rise/art11.png"></div>
+<div class="img-wrap" onclick="openLightbox(11)"><img src="images/rise/art12.png"></div>
+<div class="img-wrap" onclick="openLightbox(12)"><img src="images/rise/art13.png"></div>
+<div class="img-wrap" onclick="openLightbox(13)"><img src="images/rise/art14.png"></div>
+<div class="img-wrap" onclick="openLightbox(14)"><img src="images/rise/art15.png"></div>
+<div class="img-wrap" onclick="openLightbox(15)"><img src="images/rise/art16.png"></div>
+<div class="img-wrap" onclick="openLightbox(16)"><img src="images/rise/art17.png"></div>
+<div class="img-wrap" onclick="openLightbox(17)"><img src="images/rise/art18.png"></div>
+<div class="img-wrap" onclick="openLightbox(18)"><img src="images/rise/art19.png"></div>
+<div class="img-wrap" onclick="openLightbox(19)"><img src="images/rise/art20.png"></div>
+<div class="img-wrap" onclick="openLightbox(20)"><img src="images/rise/art21.png"></div>
+<div class="img-wrap" onclick="openLightbox(21)"><img src="images/rise/art22.png"></div>
+<div class="img-wrap" onclick="openLightbox(22)"><img src="images/rise/art23.png"></div>
+<div class="img-wrap" onclick="openLightbox(23)"><img src="images/rise/art24.png"></div>
+<div class="img-wrap" onclick="openLightbox(24)"><img src="images/rise/art25.png"></div>
+<div class="img-wrap" onclick="openLightbox(25)"><img src="images/rise/art26.png"></div>
 
 </div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox">
+
 <div class="arrow left" onclick="prev()">❮</div>
+
 <img id="lightbox-img">
+
 <div class="arrow right" onclick="next()">❯</div>
+
 </div>
 
 <script>
 
-const images = [
-"images/rise/art1.png",
-"images/rise/art2.png",
-"images/rise/art3.png",
-"images/rise/art4.png",
-"images/rise/art5.png",
-"images/rise/art6.png",
-  "images/rise/art7.png",
-  "images/rise/art8.png",
-  "images/rise/art9.png",
-  "images/rise/art10.png",
-  "images/rise/art11.png",
-  "images/rise/art12.png",
-  "images/rise/art13.png",
-  "images/rise/art14.png",
-  "images/rise/art15.png",
-  "images/rise/art16.png",
-  "images/rise/art17.png",
-  "images/rise/art18.png",
-  "images/rise/art19.png",
-  "images/rise/art20.png",
-  "images/rise/art21.png",
-  "images/rise/art22.png",
-  "images/rise/art23.png",
-  "images/rise/art24.png",
-  "images/rise/art25.png",
-  "images/rise/art26.png"
-];
+const images = Array.from({length:26}, (_,i)=>
+`images/rise/art${i+1}.png`
+);
 
 let current = 0;
 
@@ -193,7 +189,6 @@ if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
 
 /* SWIPE */
 let startX = 0;
-
 const lb = document.getElementById("lightbox");
 
 lb.addEventListener("touchstart",(e)=>{
@@ -204,10 +199,10 @@ lb.addEventListener("touchend",(e)=>{
 let endX = e.changedTouches[0].clientX;
 
 if(startX - endX > 50){
-next(); // swipe left
+next();
 }
 else if(endX - startX > 50){
-prev(); // swipe right
+prev();
 }
 });
 
