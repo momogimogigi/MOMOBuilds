@@ -12,33 +12,71 @@ background:#fff0f6;
 padding:2rem;
 }
 
+/* header */
+h1{margin-bottom:0.5rem;}
+a{display:inline-block;margin-bottom:2rem;color:#c084fc;text-decoration:none;}
+
+/* grid */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:12px;
 }
 
-img{
+.img-wrap{
 width:100%;
+height:160px;
+overflow:hidden;
 border-radius:12px;
 cursor:pointer;
 }
 
+.img-wrap img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.3s;
+}
+
+.img-wrap:hover img{
+transform:scale(1.08);
+}
+
+/* LIGHTBOX */
 .lightbox{
 display:none;
 position:fixed;
 top:0;left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.95);
 justify-content:center;
 align-items:center;
+z-index:999;
 }
 
 .lightbox img{
 max-width:90%;
 max-height:90%;
+object-fit:contain;
+border-radius:12px;
 }
+
+/* arrows */
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:2rem;
+color:white;
+cursor:pointer;
+user-select:none;
+padding:10px;
+}
+
+.left{left:20px;}
+.right{right:20px;}
+
 </style>
 </head>
 
@@ -48,26 +86,111 @@ max-height:90%;
 <a href="gallery.html">← back</a>
 
 <div class="grid">
-<img src="images/rise/art1.png" onclick="openLightbox(this)">
-<img src="images/rise/art2.png" onclick="openLightbox(this)">
-  <img src="images/rise/art3.png" onclick="openLightbox(this)">
-<img src="images/rise/art4.png" onclick="openLightbox(this)">
-  <img src="images/rise/art5.png" onclick="openLightbox(this)">
-<img src="images/rise/art6.png" onclick="openLightbox(this)">
+
+<div class="img-wrap" onclick="openLightbox(0)">
+<img src="images/rise/art1.png">
 </div>
 
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+<div class="img-wrap" onclick="openLightbox(1)">
+<img src="images/rise/art2.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(2)">
+<img src="images/rise/art3.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(3)">
+<img src="images/rise/art4.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(4)">
+<img src="images/rise/art5.png">
+</div>
+
+<div class="img-wrap" onclick="openLightbox(5)">
+<img src="images/rise/art6.png">
+</div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+<div class="arrow left" onclick="prev()">❮</div>
 <img id="lightbox-img">
+<div class="arrow right" onclick="next()">❯</div>
 </div>
 
 <script>
-function openLightbox(img){
+
+const images = [
+"images/rise/art1.png",
+"images/rise/art2.png",
+"images/rise/art3.png",
+"images/rise/art4.png",
+"images/rise/art5.png",
+"images/rise/art6.png"
+];
+
+let current = 0;
+
+/* OPEN */
+function openLightbox(index){
+current = index;
 document.getElementById("lightbox").style.display="flex";
-document.getElementById("lightbox-img").src=img.src;
+show();
 }
-function closeLightbox(){
+
+function show(){
+document.getElementById("lightbox-img").src = images[current];
+}
+
+/* NEXT / PREV */
+function next(){
+current = (current + 1) % images.length;
+show();
+}
+
+function prev(){
+current = (current - 1 + images.length) % images.length;
+show();
+}
+
+/* CLOSE */
+document.getElementById("lightbox").onclick = (e)=>{
+if(e.target.id === "lightbox"){
 document.getElementById("lightbox").style.display="none";
 }
+};
+
+/* KEYBOARD */
+document.addEventListener("keydown",(e)=>{
+if(document.getElementById("lightbox").style.display==="flex"){
+if(e.key==="ArrowRight") next();
+if(e.key==="ArrowLeft") prev();
+if(e.key==="Escape") document.getElementById("lightbox").style.display="none";
+}
+});
+
+/* SWIPE */
+let startX = 0;
+
+const lb = document.getElementById("lightbox");
+
+lb.addEventListener("touchstart",(e)=>{
+startX = e.touches[0].clientX;
+});
+
+lb.addEventListener("touchend",(e)=>{
+let endX = e.changedTouches[0].clientX;
+
+if(startX - endX > 50){
+next(); // swipe left
+}
+else if(endX - startX > 50){
+prev(); // swipe right
+}
+});
+
 </script>
 
 </body>
