@@ -3,125 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Initia Art</title>
-
+<title>Initia Art — MOMO</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 :root{
---bg:#fff0f6;
---bg2:#f9f5ff;
---card:#fff;
---accent:#c084fc;
---text:#5b4b66;
+  --bg:#fef0f8;
+  --bg2:#f4eeff;
+  --card:#ffffff;
+  --accent:#c084fc;
+  --accent2:#f472b6;
+  --pink:#fda4d0;
+  --lavender:#d8b4fe;
+  --mint:#a7f3d0;
+  --peach:#fcd5b0;
+  --text:#4a3860;
+  --text2:#9b7db8;
+  --text3:#c4a8dc;
+  --border:rgba(192,132,252,0.18);
+  --shadow:rgba(192,132,252,0.12);
 }
 
 body.dark{
---bg:#0b0b0f;
---bg2:#14141a;
---card:#111114;
---text:#f3f3f3;
+  --bg:#0f0a1a;
+  --bg2:#150d2a;
+  --card:#1a1030;
+  --accent:#d8b4fe;
+  --accent2:#f9a8d4;
+  --pink:#f472b6;
+  --lavender:#c084fc;
+  --text:#f3e8ff;
+  --text2:#c4b5fd;
+  --text3:#7c3aed;
+  --border:rgba(216,180,254,0.12);
+  --shadow:rgba(139,92,246,0.15);
 }
 
 body{
-margin:0;
-font-family:'Quicksand';
-background:linear-gradient(135deg,var(--bg),var(--bg2));
-color:var(--text);
-padding:2rem;
-transition:.4s;
+  font-family:'Quicksand',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .4s,color .4s;
+  overflow-x:hidden;
+  min-height:100vh;
 }
 
-.topbar{
-display:flex;
-justify-content:space-between;
-max-width:900px;
-margin:auto;
-align-items:center;
+.bg-wrap{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.4;animation:floatBlob 12s ease-in-out infinite;}
+.b1{width:350px;height:350px;background:var(--lavender);top:-80px;left:-80px;}
+.b2{width:280px;height:280px;background:var(--pink);bottom:-60px;right:-60px;animation-delay:4s;}
+.b3{width:200px;height:200px;background:var(--mint);top:50%;left:60%;animation-delay:8s;}
+.b4{width:160px;height:160px;background:var(--peach);top:15%;right:8%;animation-delay:2s;}
+@keyframes floatBlob{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(18px,25px) scale(1.04);}}
+
+.sparkle{position:fixed;border-radius:50%;pointer-events:none;z-index:0;animation:twinkle var(--dur,3s) ease-in-out infinite;animation-delay:var(--delay,0s);}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(0.3);}50%{opacity:1;transform:scale(1);}}
+
+/* NAV */
+nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2.5rem;}
+.nav-logo{font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--pink);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.4);opacity:.7;}}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);text-decoration:none;font-size:0.82rem;font-weight:600;transition:.3s;box-shadow:0 2px 12px var(--shadow);}
+.back-btn:hover{color:var(--accent);border-color:var(--accent);transform:translateX(-2px);}
+#toggle{border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:1rem;transition:.3s;color:var(--text);box-shadow:0 2px 12px var(--shadow);}
+#toggle:hover{transform:scale(1.1);}
+
+/* PAGE HERO */
+.page-hero{position:relative;z-index:1;text-align:center;padding:2rem 2rem 1rem;}
+.page-badge{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1.5px solid var(--border);border-radius:999px;padding:5px 16px;font-size:0.68rem;font-family:'Space Mono',monospace;color:var(--text2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;box-shadow:0 2px 10px var(--shadow);}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 2s ease-in-out infinite;}
+.page-hero h1{font-size:clamp(2rem,6vw,3rem);font-weight:700;line-height:1.1;margin-bottom:0.5rem;}
+.grad-text{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:0.9rem;color:var(--text2);}
+
+/* GRID */
+.gallery-wrap{position:relative;z-index:1;max-width:920px;margin:2rem auto 5rem;padding:0 2rem;}
+
+.section-label{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.art-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:12px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:12px;
-max-width:900px;
-margin:auto;
+/* ART CARD */
+.art-card{
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+  background:var(--card);
+  border:1.5px solid var(--border);
+  box-shadow:0 4px 16px var(--shadow);
+  transition:.35s cubic-bezier(.34,1.56,.64,1);
+  aspect-ratio:1/1;
 }
 
-.img-wrap{
-height:160px;
-overflow:hidden;
-border-radius:12px;
-cursor:pointer;
-background:var(--card);
+.art-card:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 14px 36px var(--shadow);
+  border-color:var(--accent);
 }
 
-.img-wrap img{
-width:100%;
-height:100%;
-object-fit:cover;
+.art-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:.4s ease;
 }
 
-.toggle{
-border:none;
-background:var(--card);
-padding:6px 10px;
-border-radius:999px;
-cursor:pointer;
+.art-card:hover img{transform:scale(1.08);}
+
+.art-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(192,132,252,0.55),rgba(244,114,182,0.45));
+  opacity:0;
+  transition:.3s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
+.art-card:hover .art-overlay{opacity:1;}
+
+.overlay-icon{
+  font-size:1.8rem;
+  transform:scale(0.7);
+  transition:.3s;
+}
+
+.art-card:hover .overlay-icon{transform:scale(1);}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(10,5,20,0.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  backdrop-filter:blur(10px);
+}
+
+.lightbox.open{opacity:1;pointer-events:all;}
+
+.lb-img{
+  max-width:min(700px,90vw);
+  max-height:85vh;
+  border-radius:20px;
+  object-fit:contain;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  transform:scale(0.9);
+  transition:.3s cubic-bezier(.34,1.56,.64,1);
+}
+
+.lightbox.open .lb-img{transform:scale(1);}
+
+.lb-close{
+  position:absolute;
+  top:1.5rem;
+  right:1.5rem;
+  width:40px;height:40px;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.08);
+  color:white;
+  font-size:1.2rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;
+}
+.lb-close:hover{background:rgba(255,255,255,0.18);}
+
+.lb-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;height:44px;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.08);
+  color:white;
+  font-size:1.2rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;
+}
+.lb-nav:hover{background:rgba(255,255,255,0.18);}
+.lb-prev{left:1.5rem;}
+.lb-next{right:1.5rem;}
+
+.lb-counter{
+  position:absolute;
+  bottom:1.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;
+  color:rgba(255,255,255,0.5);
+  letter-spacing:0.1em;
+}
+
+footer{position:relative;z-index:1;text-align:center;padding:2rem;color:var(--text3);font-size:0.85rem;}
 </style>
 </head>
-
 <body>
 
-<div class="topbar">
-<h1>Initia ✨</h1>
-<div>
-<a href="gallery.html">← back</a>
-<button id="toggle">🌙</button>
-</div>
+<div class="bg-wrap">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
 </div>
 
-<div class="grid">
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="dot"></div>
+    MOMO
+  </a>
+  <div class="nav-right">
+    <a href="gallery.html" class="back-btn">← gallery</a>
+    <button id="toggle">🌙</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-badge">
+    <div class="badge-dot"></div>
+    fan art · illustration
+  </div>
+  <h1><span class="grad-text">Initia</span> ✨</h1>
+  <p>cute contributions to the Initia ecosystem</p>
+</div>
+
+<div class="gallery-wrap">
+  <div class="section-label">artworks</div>
+  <div class="art-grid" id="grid"></div>
+</div>
+
+<footer>made with 💜 by MOMO</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+  <button class="lb-nav lb-next" id="lb-next">›</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
 <script>
-const grid=document.currentScript.parentElement;
-
-const images=[
-"images/initia/art1ok.png",
-"images/initia/art2ok.png",
-"images/initia/art3ok.png",
-"images/initia/art4ok.png",
-"images/initia/art5ok.png",
-"images/initia/art6ok.png"
+const images = [
+  "images/initia/art1ok.png",
+  "images/initia/art2ok.png",
+  "images/initia/art3ok.png",
+  "images/initia/art4ok.png",
+  "images/initia/art5ok.png",
+  "images/initia/art6ok.png",
 ];
 
-images.forEach((src,i)=>{
-grid.innerHTML+=`
-<div class="img-wrap" onclick="openL(${i})">
-<img src="${src}">
-</div>`;
+const grid = document.getElementById("grid");
+images.forEach((src, i) => {
+  const card = document.createElement("div");
+  card.className = "art-card";
+  card.innerHTML = `<img src="${src}" alt="Initia Art ${i+1}" loading="lazy"><div class="art-overlay"><div class="overlay-icon">🔍</div></div>`;
+  card.onclick = () => openLightbox(i);
+  grid.appendChild(card);
 });
-</script>
-</div>
 
-<script>
-const toggle=document.getElementById("toggle");
+// LIGHTBOX
+let current = 0;
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lb-img");
+const lbCounter = document.getElementById("lb-counter");
 
+function openLightbox(i) {
+  current = i;
+  lbImg.src = images[i];
+  lbCounter.textContent = `${i+1} / ${images.length}`;
+  lb.classList.add("open");
+}
+
+function closeLightbox() { lb.classList.remove("open"); }
+
+function navigate(dir) {
+  current = (current + dir + images.length) % images.length;
+  lbImg.style.opacity = "0";
+  setTimeout(() => {
+    lbImg.src = images[current];
+    lbCounter.textContent = `${current+1} / ${images.length}`;
+    lbImg.style.opacity = "1";
+  }, 150);
+}
+
+document.getElementById("lb-close").onclick = closeLightbox;
+document.getElementById("lb-prev").onclick = () => navigate(-1);
+document.getElementById("lb-next").onclick = () => navigate(1);
+lb.onclick = (e) => { if(e.target === lb) closeLightbox(); };
+
+document.addEventListener("keydown", (e) => {
+  if(!lb.classList.contains("open")) return;
+  if(e.key === "Escape") closeLightbox();
+  if(e.key === "ArrowLeft") navigate(-1);
+  if(e.key === "ArrowRight") navigate(1);
+});
+
+// DARK MODE
+const toggle = document.getElementById("toggle");
 function applyTheme(){
-const t=localStorage.getItem("theme");
-document.body.classList.toggle("dark",t==="dark");
-toggle.textContent=t==="dark"?"☀️":"🌙";
+  const t = localStorage.getItem("theme");
+  document.body.classList.toggle("dark", t === "dark");
+  toggle.textContent = t === "dark" ? "☀️" : "🌙";
 }
 applyTheme();
-
-toggle.onclick=()=>{
-const isDark=document.body.classList.toggle("dark");
-localStorage.setItem("theme",isDark?"dark":"light");
-toggle.textContent=isDark?"☀️":"🌙";
+toggle.onclick = () => {
+  const isDark = document.body.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  toggle.textContent = isDark ? "☀️" : "🌙";
 };
+window.addEventListener("storage", applyTheme);
 
-window.addEventListener("storage",applyTheme);
+// SPARKLES
+const sparkleData = [
+  {top:"10%",left:"5%",size:8,color:"#fda4d0",dur:"3.5s",delay:"0s"},
+  {top:"20%",left:"92%",size:6,color:"#d8b4fe",dur:"4s",delay:"1s"},
+  {top:"65%",left:"3%",size:10,color:"#a7f3d0",dur:"3s",delay:"0.5s"},
+  {top:"78%",left:"94%",size:7,color:"#fde68a",dur:"4.5s",delay:"2s"},
+  {top:"42%",left:"50%",size:5,color:"#fda4d0",dur:"3.2s",delay:"1.5s"},
+  {top:"90%",left:"25%",size:8,color:"#d8b4fe",dur:"3.8s",delay:"0.8s"},
+];
+const wrap = document.querySelector(".bg-wrap");
+sparkleData.forEach(s => {
+  const el = document.createElement("div");
+  el.className = "sparkle";
+  el.style.cssText = `top:${s.top};left:${s.left};width:${s.size}px;height:${s.size}px;background:${s.color};--dur:${s.dur};--delay:${s.delay};`;
+  wrap.appendChild(el);
+});
 </script>
-
 </body>
 </html>
