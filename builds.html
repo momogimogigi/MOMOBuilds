@@ -76,39 +76,18 @@ nav{position:relative;z-index:10;display:flex;justify-content:space-between;alig
 .section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
 .build-card{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:2rem;margin-bottom:1.2rem;transition:.35s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;box-shadow:0 4px 20px var(--shadow);display:flex;gap:1.5rem;align-items:flex-start;}
-.build-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(253,164,208,0.15),transparent 60%);opacity:0;transition:.3s;}
+/* FIX: pointer-events:none agar tidak menghalangi klik tombol */
+.build-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(253,164,208,0.15),transparent 60%);opacity:0;transition:.3s;pointer-events:none;}
 .build-card:hover::before{opacity:1;}
 .build-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px var(--shadow);}
 
-/* LOGO IMAGE VERSION */
-.build-icon{
-  width:52px;height:52px;
-  border-radius:16px;
-  overflow:hidden;
-  flex-shrink:0;
-  border:1.5px solid var(--border);
-  box-shadow:0 4px 14px var(--shadow);
-  background:var(--bg2);
-}
-.build-icon img{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-}
+.build-icon{width:52px;height:52px;border-radius:16px;overflow:hidden;flex-shrink:0;border:1.5px solid var(--border);box-shadow:0 4px 14px var(--shadow);background:var(--bg2);}
+.build-icon img{width:100%;height:100%;object-fit:cover;display:block;}
 
-/* EMOJI ICON (for WIP) */
-.build-icon-emoji{
-  width:52px;height:52px;
-  border-radius:16px;
-  background:linear-gradient(135deg,var(--lavender),var(--pink));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;
-  flex-shrink:0;
-  animation:wiggle 4s ease-in-out infinite;
-}
+.build-icon-emoji{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--lavender),var(--pink));display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;animation:wiggle 4s ease-in-out infinite;}
 @keyframes wiggle{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-4deg);}75%{transform:rotate(4deg);}}
 
-.build-body{flex:1;}
+.build-body{flex:1;position:relative;z-index:2;}
 .build-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0.7rem;}
 .build-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:999px;font-weight:700;}
 .tag-web{background:rgba(167,243,208,0.2);color:#065f46;}
@@ -123,7 +102,8 @@ body.dark .tag-ux{background:rgba(253,230,138,0.1);color:#fde68a;}
 .build-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
 .build-meta{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text3);letter-spacing:0.08em;}
 
-.btn-visit{display:inline-flex;align-items:center;gap:6px;padding:0.6rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;text-decoration:none;font-size:0.82rem;font-weight:700;transition:.3s;box-shadow:0 4px 16px rgba(192,132,252,0.3);}
+/* FIX: z-index:2 dan position:relative agar tombol selalu di atas overlay */
+.btn-visit{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:0.6rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;text-decoration:none;font-size:0.82rem;font-weight:700;transition:.3s;box-shadow:0 4px 16px rgba(192,132,252,0.3);}
 .btn-visit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,132,252,0.4);}
 
 .build-card.wip{opacity:0.65;}
