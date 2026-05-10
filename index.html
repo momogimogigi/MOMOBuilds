@@ -161,6 +161,13 @@ nav{
   animation: floatAvatar 4s ease-in-out infinite;
 }
 
+.hero-avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 @keyframes floatAvatar{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-8px);}
@@ -213,7 +220,7 @@ nav{
 .hero p{
   font-size: 1.05rem;
   color: var(--text2);
-  max-width: 380px;
+  max-width: 460px;
   margin: 0 auto 2rem;
   line-height: 1.7;
   animation: fadeIn 1.5s ease forwards;
@@ -271,6 +278,294 @@ nav{
   color: var(--text3);
   margin-bottom: 1.2rem;
 }
+
+/* ===== PROFILE SECTION ===== */
+.profile-section{
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.profile-card{
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 32px;
+  padding: 2.4rem 2.4rem 2rem;
+  box-shadow: 0 8px 40px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before{
+  content: "";
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,132,252,0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.profile-card::after{
+  content: "";
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,114,182,0.14), transparent 70%);
+  pointer-events: none;
+}
+
+/* top row */
+.profile-top{
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  margin-bottom: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.profile-pic-wrap{
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-pic{
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lavender), var(--pink), var(--peach));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  border: 3px solid var(--card);
+  box-shadow: 0 0 0 3px var(--lavender), 0 8px 24px var(--shadow);
+  animation: floatAvatar 5s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.profile-pic img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-online{
+  position: absolute;
+  bottom: 4px; right: 4px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--mint);
+  border: 2.5px solid var(--card);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.profile-info{
+  flex: 1;
+  min-width: 180px;
+}
+
+.profile-name{
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.profile-handle{
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text2);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.profile-tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ptag{
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+  transition: .25s;
+}
+
+.ptag:hover{ border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+.ptag-dot{
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* bio */
+.profile-bio{
+  font-size: 0.95rem;
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 1.8rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--bg2);
+  border-radius: 18px;
+  border-left: 3px solid var(--lavender);
+  position: relative;
+}
+
+.profile-bio-quote{
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 2.5rem;
+  color: var(--lavender);
+  opacity: 0.35;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* divider */
+.profile-divider{
+  height: 1px;
+  background: var(--border);
+  margin: 0 0 1.6rem;
+  border-radius: 999px;
+}
+
+/* details grid */
+.profile-details{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.pdetail{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pdetail-label{
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+.pdetail-val{
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* currently */
+.profile-now{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.4rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(192,132,252,0.1), rgba(244,114,182,0.08));
+  border: 1.5px solid rgba(192,132,252,0.2);
+  margin-bottom: 1.6rem;
+}
+
+.profile-now-icon{
+  font-size: 1.4rem;
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+.profile-now-text{
+  flex: 1;
+}
+
+.profile-now-label{
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 2px;
+}
+
+.profile-now-val{
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* skills */
+.profile-skills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border);
+  background: var(--card2);
+  color: var(--text2);
+  transition: .25s;
+  cursor: default;
+}
+
+.skill-pill:hover{ transform: translateY(-3px); box-shadow: 0 6px 16px var(--shadow); color: var(--text); border-color: var(--accent); }
+
+.skill-icon{ font-size: 1rem; }
+
+/* socials row */
+.profile-socials{
+  display: flex;
+  gap: 10px;
+  margin-top: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.social-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text2);
+  transition: .3s;
+  letter-spacing: 0.04em;
+}
+
+.social-btn:hover{ transform: translateY(-3px); color: var(--accent); border-color: var(--accent); box-shadow: 0 6px 20px var(--shadow); }
+
+/* ===== END PROFILE SECTION ===== */
 
 /* GRID */
 .grid{
@@ -446,6 +741,13 @@ footer{
   transition: color .2s;
 }
 .footer-links a:hover{ color: var(--accent); }
+
+@media (max-width: 540px){
+  .profile-top{ gap: 1.2rem; }
+  .profile-card{ padding: 1.6rem 1.4rem 1.4rem; }
+  .profile-name{ font-size: 1.3rem; }
+  .grid{ grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -457,8 +759,6 @@ footer{
   <div class="blob b4"></div>
 </div>
 
-<!-- sparkles injected by JS -->
-
 <nav>
   <div class="nav-logo">
     <div class="dot"></div>
@@ -468,7 +768,7 @@ footer{
 </nav>
 
 <section class="hero">
-  <div class="hero-avatar">🌸</div>
+  <div class="hero-avatar"><img src="images/momopfp.png" alt="Momo" onerror="this.parentElement.innerHTML='🌸'"></div>
 
   <div class="hero-badge">
     <div class="badge-dot"></div>
@@ -483,6 +783,94 @@ footer{
     <a href="gallery.html" class="btn btn-ghost">🎨 gallery</a>
   </div>
 </section>
+
+<!-- ===== PROFILE SECTION ===== -->
+<div class="profile-section">
+  <p class="section-label" style="margin-bottom:1.2rem;">about me</p>
+
+  <div class="profile-card">
+
+    <!-- TOP ROW -->
+    <div class="profile-top">
+      <div class="profile-pic-wrap">
+        <div class="profile-pic"><img src="images/momopfp.png" alt="Momo" onerror="this.parentElement.innerHTML='🌸'"></div>
+        <div class="profile-online"></div>
+      </div>
+
+      <div class="profile-info">
+        <div class="profile-name">MOMO ✦</div>
+        <div class="profile-handle">@momogi_mo · momogi.eth</div>
+        <div class="profile-tags">
+          <span class="ptag"><span class="ptag-dot" style="background:#fda4d0"></span>artist</span>
+          <span class="ptag"><span class="ptag-dot" style="background:#a7f3d0"></span>builder</span>
+          <span class="ptag"><span class="ptag-dot" style="background:#d8b4fe"></span>web3 native</span>
+          <span class="ptag"><span class="ptag-dot" style="background:#fde68a"></span>vibes curator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIO -->
+    <div class="profile-bio">
+      <span class="profile-bio-quote">"</span>
+      Hi, I'm Momo ♡<br>curious builder from Indonesia • web3 explorer • digital creator<br>turning internet-inspired ideas into cozy experiences through creativity, storytelling, and code ✧
+    </div>
+
+    <div class="profile-divider"></div>
+
+    <!-- DETAILS -->
+    <div class="profile-details">
+      <div class="pdetail">
+        <span class="pdetail-label">📍 based in</span>
+        <span class="pdetail-val">🌏 Southeast Asia</span>
+      </div>
+      <div class="pdetail">
+        <span class="pdetail-label">🗓️ in crypto since</span>
+        <span class="pdetail-val">2021</span>
+      </div>
+      <div class="pdetail">
+        <span class="pdetail-label">🎨 style</span>
+        <span class="pdetail-val">kawaii · pastel · pixel</span>
+      </div>
+      <div class="pdetail">
+        <span class="pdetail-label">⛓️ chain</span>
+        <span class="pdetail-val">Base · Ethereum</span>
+      </div>
+    </div>
+
+    <div class="profile-divider"></div>
+
+    <!-- CURRENTLY -->
+    <div class="profile-now">
+      <span class="profile-now-icon">🔭</span>
+      <div class="profile-now-text">
+        <div class="profile-now-label">currently exploring</div>
+        <div class="profile-now-val">onchain art + fan contributions for crypto projects i love</div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <p class="section-label" style="text-align:left;margin-bottom:0.8rem;">toolkit</p>
+    <div class="profile-skills">
+      <span class="skill-pill"><span class="skill-icon">🎨</span> Illustration</span>
+      <span class="skill-pill"><span class="skill-icon">💻</span> HTML / CSS</span>
+      <span class="skill-pill"><span class="skill-icon">⛓️</span> Onchain</span>
+      <span class="skill-pill"><span class="skill-icon">🖌️</span> Fan Art</span>
+      <span class="skill-pill"><span class="skill-icon">💜</span> Community</span>
+      <span class="skill-pill"><span class="skill-icon">✨</span> UX Ideas</span>
+      <span class="skill-pill"><span class="skill-icon">🐸</span> Meme Energy</span>
+    </div>
+
+    <!-- SOCIALS -->
+    <div class="profile-socials">
+      <a href="https://x.com/momogi_mo" target="_blank" class="social-btn">𝕏 twitter</a>
+      <a href="https://farcaster.xyz/momogi" target="_blank" class="social-btn">🟣 warpcast</a>
+      <a href="gallery.html" class="social-btn">🖼️ gallery</a>
+      <a href="builds.html" class="social-btn">🔧 builds</a>
+    </div>
+
+  </div>
+</div>
+<!-- ===== END PROFILE SECTION ===== -->
 
 <!-- STATS -->
 <div class="stats-row" id="work">
@@ -541,8 +929,8 @@ footer{
 <footer>
   made with 💜 by MOMO
   <div class="footer-links">
-       <a href="https://x.com/momogi_mo" target="_blank">twitter</a>
-     <a href="https://farcaster.xyz/momogi" target="_blank">warpcast</a>
+    <a href="https://x.com/momogi_mo" target="_blank">twitter</a>
+    <a href="https://farcaster.xyz/momogi" target="_blank">warpcast</a>
   </div>
 </footer>
 
@@ -568,7 +956,6 @@ toggle.onclick = () => {
   toggle.textContent = isDark ? "☀️" : "🌙";
 };
 
-// sparkles
 const sparkleData = [
   {top:"15%",left:"8%",size:8,color:"#fda4d0",dur:"3.5s",delay:"0s"},
   {top:"25%",left:"88%",size:6,color:"#d8b4fe",dur:"4s",delay:"1s"},
